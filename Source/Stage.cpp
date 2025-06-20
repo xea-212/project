@@ -2,6 +2,7 @@
 #include <vector>
 #include "CsvReader.h"
 #include "Player.h"
+#include "Coin.h"
 using namespace std;
 
 Stage::Stage()
@@ -29,9 +30,14 @@ Stage::Stage()
 	{
 		for (int x = 0; x < maps[z].size(); x++)
 		{
-			if (maps[z][x] == 2)
+			int p = maps[z][x];
+			if (p == 2)
 			{
-				new Player(VECTOR3(100.0f * x, 0, -100.0f * z));
+				new Player(VECTOR3(100.0f * x, -100.0f * z, 0));
+			}
+			else if (p == 3)
+			{
+				new Coin(VECTOR3(100.0f * x, -100.0f * z, 0));
 			}
 		}
 	}
@@ -48,7 +54,7 @@ void Stage::Draw()
 		for (int x = 0; x < maps[z].size(); x++)
 		{
 			if(maps[z][x] == 1)
-			MV1SetPosition(hModel, VECTOR3(100.0f * x, 0, -100.0f * z));
+			MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
 			MV1DrawModel(hModel);
 		}
 	}

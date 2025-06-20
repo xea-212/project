@@ -20,6 +20,7 @@ public:
 	virtual ~Object3D();
 	virtual void Update() override {}
 	virtual void Draw() override;
+	Transform GetTransform() { return transform; }
 protected:
 	int hModel;
 	Transform transform;
