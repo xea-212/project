@@ -25,6 +25,8 @@ Player::Player(VECTOR3(pos))
 	SetCameraPositionAndTarget_UpVecY(campos, camlook);
 
 	transform.rotation.y = 90 * DegToRad;
+
+	isPushKey = false;
 }
 
 Player::~Player()
@@ -55,17 +57,29 @@ void Player::Update()
 		transform.rotation.y -= 3 * DegToRad;
 	}*/
 	VECTOR3 velocity; // ˆÚ“®ƒxƒNƒgƒ‹
-	if (CheckHitKey(KEY_INPUT_W))
+	if (CheckHitKey(KEY_INPUT_D))
 	{
 		velocity = VECTOR3(0, 0, 1) * 5.0f * MGetRotY(transform.rotation.y);
 		anim->Play(ANIM_ID::aRUN);
+		isPushKey = true;
 	}
-	else if (CheckHitKey(KEY_INPUT_S))
+    if(CheckHitKey(KEY_INPUT_A))
 	{
 		velocity = VECTOR3(0, 0, -1) * 5.0f * MGetRotY(transform.rotation.y);
 		anim->Play(ANIM_ID::aRUN);
+		isPushKey = true;
 	}
-	else
+	if (CheckHitKey(KEY_INPUT_W))
+	{
+		velocity = VECTOR3(0, 1, 0) * 5.0f * MGetRotY(transform.rotation.y);
+		isPushKey = true;
+	}
+	if (CheckHitKey(KEY_INPUT_S))
+	{
+		velocity = VECTOR3(0, -1, 0) * 5.0f * MGetRotY(transform.rotation.y);
+		isPushKey = true;
+	}
+	if(isPushKey == false)
 	{
 		anim->Play(ANIM_ID::aIDLE);
 	}
@@ -73,7 +87,7 @@ void Player::Update()
 	Stage* st = FindGameObject<Stage>();
 	if (st != nullptr)
 	{
-		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(40, 40, 40), 40.0f);
+		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 40, 0), 40.0f);
 		push.y = 0;
 		if (VDot(velocity, push) < 0)
 		{
@@ -81,7 +95,7 @@ void Player::Update()
 		}
 	}
 
-	VECTOR3 pos = VECTOR3( 0, 0, -900) + transform.position;
+	VECTOR3 pos = VECTOR3( 0, 300, -900) + transform.position;
 	VECTOR3 look = transform.position + VECTOR3(0, 300, 0);
 	SetCameraPositionAndTarget_UpVecY(pos, look);
 }

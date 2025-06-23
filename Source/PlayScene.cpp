@@ -1,7 +1,6 @@
 #include "PlayScene.h"
 #include "Axis.h"
 #include "Stage.h"
-#include "ReadyGo.h"
 
 PlayScene::PlayScene()
 {
@@ -21,8 +20,6 @@ void PlayScene::Update()
 	if (CheckHitKey(KEY_INPUT_T)) {
 		SceneManager::ChangeScene("TITLE");
 	}
-	ReadyGo* r = FindGameObject<ReadyGo>();
-	
 }
 
 void PlayScene::Draw()

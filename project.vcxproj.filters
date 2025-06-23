@@ -71,7 +71,10 @@
     <ClCompile Include="Source\Coin.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ReadyGo.cpp">
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyBullet.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,7 +162,10 @@
     <ClInclude Include="Source\Coin.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ReadyGo.h">
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyBullet.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -157,9 +157,10 @@
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\CsvReader.h" />
+    <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\EnemyBullet.h" />
     <ClInclude Include="Source\Object3D.h" />
     <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\ReadyGo.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
@@ -185,10 +186,11 @@
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\CsvReader.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\EnemyBullet.cpp" />
     <ClCompile Include="Source\Object3D.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
-    <ClCompile Include="Source\ReadyGo.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\Stage.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />

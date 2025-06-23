@@ -3,6 +3,7 @@
 #include "CsvReader.h"
 #include "Player.h"
 #include "Coin.h"
+#include "Enemy.h"
 using namespace std;
 
 Stage::Stage()
@@ -39,6 +40,10 @@ Stage::Stage()
 			{
 				new Coin(VECTOR3(100.0f * x, -100.0f * z, 0));
 			}
+			else if (p == 4)
+			{
+				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0));
+			}
 		}
 	}
 }
@@ -70,7 +75,7 @@ VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 			if (maps[z][x] != 1)
 				continue;
 			
-			MV1SetPosition(hModel, VECTOR3(x * 100, 0, z * -100));
+			MV1SetPosition(hModel, VECTOR3(x * 100.0f, z * -100.0f, 0));
 			MV1RefreshCollInfo(hModel);
 			MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(hModel, -1, center, radius);
 			for (int h = 0; h < result.HitNum; h++)
