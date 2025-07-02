@@ -6,7 +6,7 @@ EnemyBullet::EnemyBullet(VECTOR3(pos))
 {
 	transform.position = pos;
 
-	hModel = MV1LoadModel("data/models/Cookie.mv1");
+	hModel = MV1LoadModel("data/models/chococookie.mv1");
 
 	Player* e = FindGameObject<Player>();
 	float tgX = e->GetPosition().x;
@@ -33,6 +33,11 @@ EnemyBullet::EnemyBullet(VECTOR3(pos))
 
 EnemyBullet::~EnemyBullet()
 {
+	if (hModel != -1)
+	{
+		MV1DeleteModel(hModel);
+		hModel = -1;
+	}
 }
 
 void EnemyBullet::Update()

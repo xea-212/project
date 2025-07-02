@@ -61,6 +61,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	AppInit();
 
 	while (true) {
+
+		SetBackgroundColor(255, 255, 255);
+
 #if IMGUI
 		ImGui_ImplDXlib_NewFrame();
 		ImGui::NewFrame();

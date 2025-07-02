@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Stage.h"
 #include "PlayScene.h"
+#include "Bullet.h"
 
 enum ANIM_ID
 {
@@ -84,6 +85,14 @@ void Player::Update()
 		anim->Play(ANIM_ID::aIDLE);
 	}
 	transform.position += velocity;
+	isPushKey = false;
+
+	if (CheckHitKey(KEY_INPUT_SPACE))
+	{
+		if (FindGameObject<Bullet>() == nullptr)
+		new Bullet(transform.position + VECTOR3(0,40,0));
+	}
+
 	Stage* st = FindGameObject<Stage>();
 	if (st != nullptr)
 	{
@@ -95,7 +104,7 @@ void Player::Update()
 		}
 	}
 
-	VECTOR3 pos = VECTOR3( 0, 300, -900) + transform.position;
-	VECTOR3 look = transform.position + VECTOR3(0, 300, 0);
+	VECTOR3 pos = VECTOR3( 0 + transform.position.x, -500, -900);
+	VECTOR3 look = VECTOR3(transform.position.x, -500, transform.position.z);
 	SetCameraPositionAndTarget_UpVecY(pos, look);
 }

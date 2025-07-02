@@ -38,7 +38,7 @@ Stage::Stage()
 			}
 			else if (p == 3)
 			{
-				new Coin(VECTOR3(100.0f * x, -100.0f * z, 0));
+				new Coin(VECTOR3(100.0f * x, -100.0f * z + 50.0f, 0));
 			}
 			else if (p == 4)
 			{

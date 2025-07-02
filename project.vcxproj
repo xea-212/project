@@ -155,6 +155,7 @@
     <ClInclude Include="Source\Animator.h" />
     <ClInclude Include="Source\Axis.h" />
     <ClInclude Include="Source\BootScene.h" />
+    <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\CsvReader.h" />
     <ClInclude Include="Source\Enemy.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Source\Animator.cpp" />
     <ClCompile Include="Source\Axis.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\CsvReader.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
