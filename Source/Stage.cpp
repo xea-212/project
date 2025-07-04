@@ -42,7 +42,11 @@ Stage::Stage()
 			}
 			else if (p == 4)
 			{
-				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0));
+				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 0);
+			}
+			else if (p == 5)
+			{
+				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 1);
 			}
 		}
 	}

@@ -5,10 +5,26 @@
 class Enemy : public Object3D
 {
 public:
-	Enemy(VECTOR3(pos));
+	Enemy(VECTOR3(pos), int enemyName);
 	~Enemy();
 	void Update() override;
 	
 private:
 	float bulletTimer;
+
+	enum ENEMY
+	{
+		ZAKO0,
+		ZAKO1,
+		ZAKO2,
+		ZAKO3,
+		BOSS,
+		ENEMY_MAX
+	};
+	ENEMY type;
+	void UpdateZako0();
+	void UpdateZako1();
+	void UpdateZako2();
+	void UpdateZako3();
+	void UpdateBoss();
 };
