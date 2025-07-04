@@ -70,6 +70,13 @@ void Enemy::Update()
 
 void Enemy::UpdateZako0()
 {
+	float dt = Time::DeltaTime();
+	bulletTimer += dt;
+	if (bulletTimer > 2.5f)
+	{
+		new EnemyBullet(transform.position, 0);
+		bulletTimer = 0;
+	}
 }
 
 void Enemy::UpdateZako1()
@@ -81,7 +88,7 @@ void Enemy::UpdateZako1()
 	{
 		if (bulletTimer > 5)
 		{
-			new EnemyBullet(transform.position);
+			new EnemyBullet(transform.position, 1);
 			bulletTimer = 0;
 		}
 	}

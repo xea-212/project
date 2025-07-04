@@ -1,12 +1,22 @@
 #include "EnemyBullet.h"
 #include "Player.h"
+#include "Enemy.h"
 #include <cmath>
 
-EnemyBullet::EnemyBullet(VECTOR3(pos))
+EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 {
 	transform.position = pos;
 
-	hModel = MV1LoadModel("data/models/chococookie.mv1");
+	bullet = static_cast<BULLET>(bulletName);
+	switch (bullet)
+	{
+	case BULLET::YOGURT:
+		hModel = MV1LoadModel("data/models/Ybullet.mv1");
+		break;
+	case BULLET::CHOKOCOOKIE:
+		hModel = MV1LoadModel("data/models/chococookie.mv1");
+		break;
+	}
 
 	Player* e = FindGameObject<Player>();
 	float tgX = e->GetPosition().x;
@@ -27,7 +37,7 @@ EnemyBullet::EnemyBullet(VECTOR3(pos))
 		direction_ = { 0.0f, 1.0f }; // Default to down if start and target are same
 	}
 
-	life_ = 600;
+	life_ = 300;
 
 }
 
@@ -42,15 +52,23 @@ EnemyBullet::~EnemyBullet()
 
 void EnemyBullet::Update()
 {
-	life_--;
-
 	float dt = Time::DeltaTime();
-
-	transform.position.x += direction_.x * 500.0f * dt;
-	transform.position.y += direction_.y * 500.0f * dt;
+	life_--;
+	switch (bullet)
+	{
+	case BULLET::YOGURT:
+		transform.position += VECTOR3(0,speed_,0);
+		break;
+	case BULLET::CHOKOCOOKIE:
+		transform.position.x += direction_.x * 500.0f * dt;
+		transform.position.y += direction_.y * 500.0f * dt;
+		break;
+	}
 
 	if (life_ < 0)
 	{
 		DestroyMe();
 	}
+
+	
 }

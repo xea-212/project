@@ -12,4 +12,5 @@ private:
 	bool isAlive_;
 	int life_;
 	float speed_;
+	
 };
