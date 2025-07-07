@@ -41,6 +41,8 @@ Player::~Player()
 
 void Player::Update()
 {
+	int key = GetJoypadInputState(DX_INPUT_PAD1);
+
 	if (anim != nullptr)
 	{
 		anim->Update();
@@ -57,25 +59,25 @@ void Player::Update()
 	{
 		transform.rotation.y -= 3 * DegToRad;
 	}*/
-	VECTOR3 velocity; // 移動ベクトル
-	if (CheckHitKey(KEY_INPUT_D))
+	VECTOR3 velocity; // 移動ベクトル 
+	if (CheckHitKey(KEY_INPUT_D) || key & PAD_INPUT_RIGHT)
 	{
 		velocity = VECTOR3(0, 0, 1) * 5.0f * MGetRotY(transform.rotation.y);
 		anim->Play(ANIM_ID::aRUN);
 		isPushKey = true;
 	}
-    if(CheckHitKey(KEY_INPUT_A))
+    if(CheckHitKey(KEY_INPUT_A) || key & PAD_INPUT_LEFT)
 	{
 		velocity = VECTOR3(0, 0, -1) * 5.0f * MGetRotY(transform.rotation.y);
 		anim->Play(ANIM_ID::aRUN);
 		isPushKey = true;
 	}
-	if (CheckHitKey(KEY_INPUT_W))
+	if (CheckHitKey(KEY_INPUT_W) || key & PAD_INPUT_UP)
 	{
 		velocity = VECTOR3(0, 1, 0) * 5.0f * MGetRotY(transform.rotation.y);
 		isPushKey = true;
 	}
-	if (CheckHitKey(KEY_INPUT_S))
+	if (CheckHitKey(KEY_INPUT_S) || key & PAD_INPUT_DOWN)
 	{
 		velocity = VECTOR3(0, -1, 0) * 5.0f * MGetRotY(transform.rotation.y);
 		isPushKey = true;
@@ -84,10 +86,10 @@ void Player::Update()
 	{
 		anim->Play(ANIM_ID::aIDLE);
 	}
-	transform.position += velocity;
+	/*transform.position += velocity;*/
 	isPushKey = false;
 
-	if (CheckHitKey(KEY_INPUT_SPACE))
+	if (CheckHitKey(KEY_INPUT_SPACE) || key & PAD_INPUT_B)
 	{
 		if (FindGameObject<Bullet>() == nullptr)
 		new Bullet(transform.position + VECTOR3(0,40,0));
@@ -102,9 +104,15 @@ void Player::Update()
 		{
 			transform.position += push;
 		}
+		else
+		{
+			transform.position += velocity;
+		}
 	}
 
 	VECTOR3 pos = VECTOR3( 0 + transform.position.x, -500, -900);
 	VECTOR3 look = VECTOR3(transform.position.x, -500, transform.position.z);
 	SetCameraPositionAndTarget_UpVecY(pos, look);
+
+
 }

@@ -11,6 +11,7 @@ public:
 	VECTOR3 CollideSphere(VECTOR3 center, float radius);
 private:
 	std::vector<std::vector<int>> maps;
+	int hImage_;
 };
 
 

@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "EnemyBullet.h"
 #include "Player.h"
+#include <cmath>
 
 Enemy::Enemy(VECTOR3(pos), int enemyName)
 {
@@ -17,7 +18,7 @@ Enemy::Enemy(VECTOR3(pos), int enemyName)
 		hModel = MV1LoadModel("data/models/Cookie.mv1");
 		break;
 	case ENEMY::ZAKO2:
-		
+		hModel = MV1LoadModel("data/models/Eye.mv1");
 		break;
 	case ENEMY::ZAKO3:
 		
@@ -32,7 +33,8 @@ Enemy::Enemy(VECTOR3(pos), int enemyName)
 	assert(hModel > 0);
 
 	bulletTimer = 0;
-	
+	basePosition_ = pos;
+	isBack_ = false;
 }
 
 Enemy::~Enemy()
@@ -96,6 +98,68 @@ void Enemy::UpdateZako1()
 
 void Enemy::UpdateZako2()
 {
+	float dt = Time::DeltaTime();
+	Player* p = FindGameObject<Player>();
+	if (isBack_ == false)
+	{
+		float tgX = p->GetPosition().x;
+		float tgY = p->GetPosition().y;
+
+		float dx = tgX - transform.position.x;
+		float dy = tgY - transform.position.y;
+
+		float length = std::sqrt(dx * dx + dy * dy);
+
+		if (length > 0)
+		{
+			direction_.x = dx / length;
+			direction_.y = dy / length;
+		}
+		else
+		{
+			direction_ = { 0.0f, 1.0f };
+		}
+
+		if (std::abs(transform.position.Size() - p->GetTransform().position.Size()) < 500)
+		{
+			transform.position.x += direction_.x * 300.0f * dt;
+			transform.position.y += direction_.y * 300.0f * dt;
+		}
+		else
+		{
+			isBack_ = true;
+		}
+	}
+	else
+	{
+		float tgX = basePosition_.x;
+		float tgY = basePosition_.y;
+
+		float dx = tgX - transform.position.x;
+		float dy = tgY - transform.position.y;
+
+		float length = std::sqrt(dx * dx + dy * dy);
+
+		if (length > 0)
+		{
+			direction_.x = dx / length;
+			direction_.y = dy / length;
+		}
+		else
+		{
+			direction_ = { 0.0f, 1.0f };
+		}
+
+		if (std::abs(transform.position.Size() - basePosition_.Size()) > 10)
+		{
+			transform.position.x += direction_.x * 300.0f * dt;
+			transform.position.y += direction_.y * 300.0f * dt;
+		}
+		else
+		{
+			isBack_ = false;
+		}
+	}
 }
 
 void Enemy::UpdateZako3()

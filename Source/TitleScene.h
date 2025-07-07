@@ -13,4 +13,8 @@ public:
 	~TitleScene();
 	void Update() override;
 	void Draw() override;
+private:
+	int hImage_;
+	bool isDisplay_;
+	float titleTimer_;
 };

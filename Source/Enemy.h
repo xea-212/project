@@ -11,6 +11,7 @@ public:
 	
 private:
 	float bulletTimer;
+	VECTOR3 direction_;
 
 	enum ENEMY
 	{
@@ -27,4 +28,7 @@ private:
 	void UpdateZako2();
 	void UpdateZako3();
 	void UpdateBoss();
+
+	VECTOR3 basePosition_;
+	bool isBack_;
 };
