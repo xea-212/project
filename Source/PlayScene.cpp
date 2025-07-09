@@ -24,6 +24,7 @@ void PlayScene::Update()
 
 void PlayScene::Draw()
 {
+
 }
 
 void PlayScene::PlayStart()

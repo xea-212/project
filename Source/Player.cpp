@@ -116,3 +116,9 @@ void Player::Update()
 
 
 }
+
+void Player::Draw()
+{
+	Object3D::Draw();
+	DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+}

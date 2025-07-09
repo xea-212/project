@@ -73,10 +73,6 @@ void Enemy::Update()
 
 	Stage* st = FindGameObject<Stage>();
 	Bullet* b = FindGameObject<Bullet>();
-	if (st->CheckCircleCollisionXY(transform.position, 40, b->GetTransform().position, 20))
-	{
-		DestroyMe();
-	}
 }
 
 void Enemy::UpdateZako0()
