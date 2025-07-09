@@ -86,7 +86,7 @@ void Player::Update()
 	{
 		anim->Play(ANIM_ID::aIDLE);
 	}
-	transform.position += velocity;
+	/*transform.position += velocity;*/
 	isPushKey = false;
 
 	if (CheckHitKey(KEY_INPUT_SPACE) || key & PAD_INPUT_B)
@@ -104,9 +104,15 @@ void Player::Update()
 		{
 			transform.position += push;
 		}
+		else
+		{
+			transform.position += velocity;
+		}
 	}
 
 	VECTOR3 pos = VECTOR3( 0 + transform.position.x, -500, -900);
 	VECTOR3 look = VECTOR3(transform.position.x, -500, transform.position.z);
 	SetCameraPositionAndTarget_UpVecY(pos, look);
+
+
 }

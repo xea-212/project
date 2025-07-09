@@ -50,6 +50,10 @@ Stage::Stage()
 			{
 				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 1);
 			}
+			else if (p == 6)
+			{
+				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 2);
+			}
 		}
 	}
 }

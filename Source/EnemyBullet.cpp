@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include <cmath>
+#include "Stage.h"
 
 EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 {
@@ -38,7 +39,7 @@ EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 	}
 
 	life_ = 300;
-
+	
 }
 
 EnemyBullet::~EnemyBullet()
@@ -69,6 +70,4 @@ void EnemyBullet::Update()
 	{
 		DestroyMe();
 	}
-
-	
 }
