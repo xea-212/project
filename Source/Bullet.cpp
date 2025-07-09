@@ -40,3 +40,9 @@ void Bullet::Update()
 	}
 }
 
+void Bullet::Draw()
+{
+	Object3D::Draw();
+	DrawSphere3D(transform.position + VECTOR3(0,20,0), 20, 8, GetColor(255, 255, 255), GetColor(255, 255, 255), FALSE);
+}
+

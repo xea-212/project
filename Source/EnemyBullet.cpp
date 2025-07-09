@@ -53,6 +53,8 @@ EnemyBullet::~EnemyBullet()
 
 void EnemyBullet::Update()
 {
+	Stage* st = FindGameObject<Stage>();
+	Player* p = FindGameObject<Player>();
 	float dt = Time::DeltaTime();
 	life_--;
 	switch (bullet)
@@ -66,8 +68,19 @@ void EnemyBullet::Update()
 		break;
 	}
 
+	if (st->CheckCircleCollisionXY(transform.position, 20, p->GetPosition(), 40))
+	{
+		DestroyMe();
+	}
+
 	if (life_ < 0)
 	{
 		DestroyMe();
 	}
+}
+
+void EnemyBullet::Draw()
+{
+	Object3D::Draw();
+	DrawSphere3D(transform.position + VECTOR3(0, 20, 0), 20, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }

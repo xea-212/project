@@ -158,3 +158,13 @@ VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 	}
 	return ret;
 }
+
+bool Stage::CheckCircleCollisionXY(const VECTOR3& pos1, float r1, const VECTOR3& pos2, float r2)
+{
+	float dx = pos1.x - pos2.x;
+	float dy = pos1.y - pos2.y;
+	float distSq = dx * dx + dy * dy;
+	float radiusSum = r1 + r2;
+
+	return distSq <= radiusSum * radiusSum;
+}

@@ -7,6 +7,7 @@ public:
 	EnemyBullet(VECTOR3(pos), int bulletName);
 	~EnemyBullet();
 	void Update() override;
+	void Draw() override;
 private:
 	VECTOR3 direction_;
 	int life_;

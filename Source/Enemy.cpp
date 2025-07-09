@@ -1,8 +1,10 @@
 #include "Enemy.h"
 #include <assert.h>
 #include "EnemyBullet.h"
+#include "Bullet.h"
 #include "Player.h"
 #include <cmath>
+#include "Stage.h"
 
 Enemy::Enemy(VECTOR3(pos), int enemyName)
 {
@@ -68,6 +70,13 @@ void Enemy::Update()
 	default:
 		break;
 	}
+
+	Stage* st = FindGameObject<Stage>();
+	Bullet* b = FindGameObject<Bullet>();
+	if (st->CheckCircleCollisionXY(transform.position, 40, b->GetTransform().position, 20))
+	{
+		DestroyMe();
+	}
 }
 
 void Enemy::UpdateZako0()
@@ -99,6 +108,7 @@ void Enemy::UpdateZako1()
 void Enemy::UpdateZako2()
 {
 	float dt = Time::DeltaTime();
+	
 	Player* p = FindGameObject<Player>();
 	if (isBack_ == false)
 	{
@@ -152,8 +162,12 @@ void Enemy::UpdateZako2()
 
 		if (std::abs(transform.position.Size() - basePosition_.Size()) > 10)
 		{
-			transform.position.x += direction_.x * 300.0f * dt;
-			transform.position.y += direction_.y * 300.0f * dt;
+			transform.position.x += direction_.x * 150.0f * dt;
+			transform.position.y += direction_.y * 150.0f * dt;
+			if (std::abs(transform.position.Size() - p->GetTransform().position.Size()) < 500)
+			{
+				isBack_ = false;
+			}
 		}
 		else
 		{

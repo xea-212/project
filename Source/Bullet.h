@@ -7,6 +7,7 @@ public:
 	Bullet(VECTOR3 pos);
 	~Bullet();
 	void Update() override;
+	void Draw() override;
 	bool IsAlive() const { return isAlive_; }
 private:
 	bool isAlive_;
