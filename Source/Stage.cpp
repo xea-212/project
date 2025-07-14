@@ -4,6 +4,9 @@
 #include "Player.h"
 #include "Coin.h"
 #include "Enemy.h"
+#include "Bullet.h"
+#include "EnemyBullet.h"
+#include <cmath>
 using namespace std;
 
 Stage::Stage()
@@ -62,6 +65,25 @@ Stage::~Stage()
 {
 }
 
+void Stage::Update()
+{
+	std::list<Enemy*> e = FindGameObjects<Enemy>();
+	EnemyBullet* eb = FindGameObject<EnemyBullet>();
+	Player* p = FindGameObject<Player>();
+	Bullet* b = FindGameObject<Bullet>();
+	for (auto& enemy : e)
+	{
+		if (b != nullptr && enemy != nullptr)
+		{
+			if (CheckCircleCollisionXY(b->GetTransform().position, 20, enemy->GetTransform().position, 40))
+			{
+				enemy->DestroyMe();
+			}
+		}
+	}
+	
+}
+
 void Stage::Draw()
 {
 	DrawGraph(0, 0, hImage_, TRUE);
@@ -76,48 +98,6 @@ void Stage::Draw()
 	}
 }
 
-//VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
-//{
-//	VECTOR3 ret;
-//	for (int z = 0; z < maps.size(); z++)
-//	{
-//		for (int x = 0; x < maps[z].size(); x++)
-//		{
-//			if (maps[z][x] != 1)
-//				continue;
-//			
-//			MV1SetPosition(hModel, VECTOR3(x * 100.0f, z * -100.0f, 0));
-//			MV1RefreshCollInfo(hModel);
-//			MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(hModel, -1, center, radius);
-//			for (int h = 0; h < result.HitNum; h++)
-//			{
-//				VECTOR3 hitPos = result.Dim[h].HitPosition; // ポリゴンと当たった場所
-//				VECTOR3 hitNorm = result.Dim[h].Normal; // 当たったポリゴンの法線
-//
-//				int nx = x + hitNorm.x;
-//				int nz = z - hitNorm.z;
-//				if (maps[nz][nx] == 1)
-//				{
-//					continue;
-//				}
-//
-//				// 押し返す向きのベクトル（A)を作る・・・当たった座標から、球の中心へのベクトル
-//				VECTOR3 a = center - hitPos;
-//				// これの長さが、半径より小さくなるはず
-//				// 押し返す量（大きさ）は、半径から、Aの長さを引いたやつ
-//				float vol = radius - a.Size();
-//				// 押し返す向きは、Aの長さ1にしたやつ
-//				VECTOR3 dir = a.Normalize();
-//				// 向きと大きさを合成したものが、押し返すベクトル→これをreturnする
-//				ret += dir * vol;
-//			}
-//			// 当たったあとの計算
-//			MV1CollResultPolyDimTerminate(result);
-//		}
-//	}
-//	return ret;
-//}
-//
 
 VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 {
@@ -163,8 +143,28 @@ bool Stage::CheckCircleCollisionXY(const VECTOR3& pos1, float r1, const VECTOR3&
 {
 	float dx = pos1.x - pos2.x;
 	float dy = pos1.y - pos2.y;
-	float distSq = dx * dx + dy * dy;
+	float distSq = std::sqrtf(dx * dx + dy * dy);
 	float radiusSum = r1 + r2;
 
-	return distSq <= radiusSum * radiusSum;
+	return distSq <= radiusSum;
+}
+
+bool Stage::CheckHitTile(const VECTOR3& center, float radius)
+{
+	for (int y = 0; y < maps.size(); y++) {
+		for (int x = 0; x < maps[y].size(); x++) {
+			// maps[y][x] == 1 が衝突判定を行う
+			if (maps[y][x] != 1)
+				continue;
+			VECTOR3 up = center + VECTOR3(0, radius, 0);
+			int tilex = up.x / -100.0f;
+			int tiley = up.y / -100.0f;
+			if (maps[tiley][tilex] == 1)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

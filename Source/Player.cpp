@@ -95,11 +95,12 @@ void Player::Update()
 		new Bullet(transform.position + VECTOR3(0,40,0));
 	}
 
+#if true
 	Stage* st = FindGameObject<Stage>();
 	if (st != nullptr)
 	{
-		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 0, 0), 40.0f);
-		push.y = 0;
+		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 40, 0), 40.0f);
+		//push.y = 0;
 		if (VDot(velocity, push) < 0)
 		{
 			transform.position += push;
@@ -109,7 +110,13 @@ void Player::Update()
 			transform.position += velocity;
 		}
 	}
-
+#else 
+	Stage* st = FindGameObject<Stage>();
+	if (st != nullptr) {
+		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 40, 0), 40.0f);
+		transform.position += push;
+	}
+#endif
 	VECTOR3 pos = VECTOR3( 0 + transform.position.x, -500, -900);
 	VECTOR3 look = VECTOR3(transform.position.x, -500, transform.position.z);
 	SetCameraPositionAndTarget_UpVecY(pos, look);
@@ -120,5 +127,5 @@ void Player::Update()
 void Player::Draw()
 {
 	Object3D::Draw();
-	DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+	//DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }

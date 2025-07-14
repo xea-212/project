@@ -3,13 +3,15 @@
 #include "Enemy.h"
 #include <cmath>
 #include "Stage.h"
+#include <map>
+
+std::map<int, int> BulletModel;
 
 EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 {
 	transform.position = pos;
-
-	bullet = static_cast<BULLET>(bulletName);
-	switch (bullet)
+	enemyId = bulletName;
+	switch (enemyId)
 	{
 	case BULLET::YOGURT:
 		hModel = MV1LoadModel("data/models/Ybullet.mv1");
@@ -18,6 +20,9 @@ EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 		hModel = MV1LoadModel("data/models/chococookie.mv1");
 		break;
 	}
+	
+	//BulletModel[enemyID] = MV1LoadModel("data/models/Ybullet.mv1");
+	//BulletModel[enemyID] = MV1LoadModel("data/models/chococookie.mv1");
 
 	Player* e = FindGameObject<Player>();
 	float tgX = e->GetPosition().x;
@@ -40,6 +45,7 @@ EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 
 	life_ = 300;
 	
+	printfDx("%d\n", enemyId);
 }
 
 EnemyBullet::~EnemyBullet()
@@ -57,21 +63,28 @@ void EnemyBullet::Update()
 	Player* p = FindGameObject<Player>();
 	float dt = Time::DeltaTime();
 	life_--;
-	switch (bullet)
+	if (st != nullptr)
 	{
-	case BULLET::YOGURT:
-		transform.position += VECTOR3(0,speed_,0);
-		break;
-	case BULLET::CHOKOCOOKIE:
-		transform.position.x += direction_.x * 500.0f * dt;
-		transform.position.y += direction_.y * 500.0f * dt;
-		break;
-	}
 
-	if (st->CheckCircleCollisionXY(transform.position, 20, p->GetPosition(), 40))
-	{
-		DestroyMe();
+		if (st->CheckHitTile(transform.position + VECTOR3( 0, 10, 0), 10.0f))
+		{
+			DestroyMe();
+		}
+		else
+		{
+			switch (enemyId)
+			{
+			case 0:
+				transform.position += VECTOR3(0, speed_, 0);
+				break;
+			case 1:
+				transform.position.x += direction_.x * 500.0f * dt;
+				transform.position.y += direction_.y * 500.0f * dt;
+				break;
+			}
+		}
 	}
+	
 
 	if (life_ < 0)
 	{
@@ -82,5 +95,5 @@ void EnemyBullet::Update()
 void EnemyBullet::Draw()
 {
 	Object3D::Draw();
-	DrawSphere3D(transform.position + VECTOR3(0, 20, 0), 20, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+	//DrawSphere3D(transform.position + VECTOR3(0, 20, 0), 20, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }

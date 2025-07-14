@@ -70,9 +70,6 @@ void Enemy::Update()
 	default:
 		break;
 	}
-
-	Stage* st = FindGameObject<Stage>();
-	Bullet* b = FindGameObject<Bullet>();
 }
 
 void Enemy::UpdateZako0()
