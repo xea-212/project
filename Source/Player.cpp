@@ -13,7 +13,7 @@ Player::Player(VECTOR3(pos))
 {
 	transform.position = pos;
 
-	hModel = MV1LoadModel("data/models/WhiteChara.mv1");
+	hModel = MV1LoadModel("data/models/ashley.mv1");
 	MV1SetFrameUserLocalMatrix(hModel, 6, MGetRotY(DX_PI_F));
 
 	anim = new Animator(hModel);
@@ -24,8 +24,6 @@ Player::Player(VECTOR3(pos))
 	VECTOR3 campos = VECTOR3(0, 300, -300) + transform.position;
 	VECTOR3 camlook = transform.position + VECTOR3(0, 150, 0);
 	SetCameraPositionAndTarget_UpVecY(campos, camlook);
-
-	transform.rotation.y = 90 * DegToRad;
 
 	isPushKey = false;
 }
@@ -62,24 +60,24 @@ void Player::Update()
 	VECTOR3 velocity; // ˆÚ“®ƒxƒNƒgƒ‹ 
 	if (CheckHitKey(KEY_INPUT_D) || key & PAD_INPUT_RIGHT)
 	{
-		velocity = VECTOR3(0, 0, 1) * 5.0f * MGetRotY(transform.rotation.y);
+		velocity = VECTOR3(1, 0, 0) * 5.0f;
 		anim->Play(ANIM_ID::aRUN);
 		isPushKey = true;
 	}
     if(CheckHitKey(KEY_INPUT_A) || key & PAD_INPUT_LEFT)
 	{
-		velocity = VECTOR3(0, 0, -1) * 5.0f * MGetRotY(transform.rotation.y);
+		velocity = VECTOR3(-1, 0, 0) * 5.0f;
 		anim->Play(ANIM_ID::aRUN);
 		isPushKey = true;
 	}
 	if (CheckHitKey(KEY_INPUT_W) || key & PAD_INPUT_UP)
 	{
-		velocity = VECTOR3(0, 1, 0) * 5.0f * MGetRotY(transform.rotation.y);
+		velocity = VECTOR3(0, 1, 0) * 5.0f;
 		isPushKey = true;
 	}
 	if (CheckHitKey(KEY_INPUT_S) || key & PAD_INPUT_DOWN)
 	{
-		velocity = VECTOR3(0, -1, 0) * 5.0f * MGetRotY(transform.rotation.y);
+		velocity = VECTOR3(0, -1, 0) * 5.0f;
 		isPushKey = true;
 	}
 	if(isPushKey == false)

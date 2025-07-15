@@ -1,5 +1,7 @@
 #include "Bullet.h"
 #include "Player.h"
+#include "Stage.h"
+#include "Enemy.h"
 
 Bullet::Bullet(VECTOR3 pos)
 {
@@ -23,6 +25,13 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	Stage* st = FindGameObject<Stage>();
+	Enemy* e = FindGameObject<Enemy>();
+	if (st->CheckCircleCollisionXY(transform.position, 20, e->GetTransform().position, 40))
+	{
+		e->DestroyMe();
+		DestroyMe();
+	}
 	
 	if (isAlive_ == false)
 	{

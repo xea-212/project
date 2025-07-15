@@ -68,7 +68,7 @@ void EnemyBullet::Update()
 		break;
 	}
 
-	if (st->CheckCircleCollisionXY(transform.position, 20, p->GetPosition(), 40))
+	if (st->HitTile(transform.position + VECTOR3(0,10,0)))
 	{
 		DestroyMe();
 	}
