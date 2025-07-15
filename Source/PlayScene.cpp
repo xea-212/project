@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "Axis.h"
 #include "Stage.h"
+#include "PLayer.h"
 
 PlayScene::PlayScene()
 {
@@ -17,14 +18,14 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_T)) {
-		SceneManager::ChangeScene("TITLE");
+	Player* p = FindGameObject<Player>();
+	if (p->IsAlive() == false) {
+		SceneManager::ChangeScene("RESULT");
 	}
 }
 
 void PlayScene::Draw()
 {
-
 }
 
 void PlayScene::PlayStart()
@@ -36,10 +37,7 @@ bool PlayScene::CantMove()
 {
 	switch (state)
 	{
-	//case S_READY:
-	//case S_TIMEUP:
 		return true;
-		
 	}
 	return false;
 }

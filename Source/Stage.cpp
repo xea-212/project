@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "EnemyBullet.h"
 #include <cmath>
+#include "Item.h"
 using namespace std;
 
 Stage::Stage()
@@ -17,6 +18,7 @@ Stage::Stage()
 	hImage_ = LoadGraph("data/images/background.jpg");
 
 	isDraw = false;
+	isInBossArea_ = false;
 
 	int st = 0;
 	char filename[64];
@@ -59,6 +61,10 @@ Stage::Stage()
 			{
 				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 2);
 			}
+			else if (p == 9)
+			{
+				new Item(VECTOR3(100.0f * x, -100.0f * z + 50.0f, 0), 9);
+			}
 		}
 	}
 }
@@ -89,6 +95,7 @@ void Stage::Update()
 void Stage::Draw()
 {
 	DrawGraph(0, 0, hImage_, TRUE);
+	Player* p = FindGameObject<Player>();
 	for (int z = 0; z < maps.size(); z++)
 	{
 		for (int x = 0; x < maps[z].size(); x++)
@@ -99,11 +106,20 @@ void Stage::Draw()
 			}
 			if (maps[z][x] == 7)
 			{
-				Player* p = FindGameObject<Player>();
 				VECTOR3 pPos = p->GetPosition();
 				if (pPos.x > x * 100.0f + 50.0f)
 				{
 					isDraw = true;
+					MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
+				}
+			}
+			if (maps[z][x] == 8)
+			{
+				Player* p = FindGameObject<Player>();
+				VECTOR3 pPos = p->GetPosition();
+				if (pPos.x > x * 100.0f + 50.0f)
+				{
+					isInBossArea_ = true;
 					MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
 				}
 			}
@@ -122,7 +138,13 @@ VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 		for (int x = 0; x < maps[y].size(); x++) {
 			// maps[z][x] == 1 ‚ªÕ“Ë”»’è‚ðs‚¤
 			
-			if (isDraw == true)
+			
+			if (isInBossArea_ == true && isDraw == true)
+			{
+				if (maps[y][x] != 1 && maps[y][x] != 7 && maps[y][x] != 8)
+					continue;
+			}
+			else if (isDraw == true)
 			{
 				if (maps[y][x] != 1 && maps[y][x] != 7)
 					continue;
@@ -178,6 +200,22 @@ bool Stage::CheckHitTile(VECTOR3 center)
 		return true;
 	}
 	
+	return false;
+}
+
+bool Stage::CheckHitItem(VECTOR3 center)
+{
+	int tileX = center.x / 100;
+	int tileY = center.y / -100.0f;
+
+	if (maps[tileY + 1][tileX] == 1)
+	{
+		VECTOR3 itemCenter = VECTOR3(tileX * 100.0f, tileY * -100.0f, 0) - VECTOR3(0, 50, 0);
+		VECTOR3 distance = itemCenter - center;
+		if (std::abs(distance.Size()) < 500.0f)
+			return true;
+	}
+
 	return false;
 }
 

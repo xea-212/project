@@ -20,6 +20,10 @@ Player::Player(VECTOR3(pos))
 	VECTOR3 campos = VECTOR3(0, 300, -300) + transform.position;
 	VECTOR3 camlook = transform.position + VECTOR3(0, 150, 0);
 	SetCameraPositionAndTarget_UpVecY(campos, camlook);
+
+	isAlive_ = true;
+	life_ = 3;
+	score_ = 0;
 }
 
 Player::~Player()
@@ -30,8 +34,6 @@ Player::~Player()
 void Player::Update()
 {
 	int key = GetJoypadInputState(DX_INPUT_PAD1);
-
-	
 
 	if (GetScene<PlayScene>()->CantMove())
 		return;
@@ -89,6 +91,18 @@ void Player::Update()
 			transform.position += velocity;
 		}
 	}
+
+	if (life_ <= 0)
+	{
+		isAlive_ = false;
+	}
+
+	if (score_ < 0)
+	{
+		score_ = 0;
+	}
+
+
 #else 
 	Stage* st = FindGameObject<Stage>();
 	if (st != nullptr) {
@@ -107,4 +121,5 @@ void Player::Draw()
 {
 	Object3D::Draw();
 	//DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+	DrawFormatString(0,0,GetColor(255,255,255),"%d",life_);
 }

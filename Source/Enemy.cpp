@@ -88,7 +88,7 @@ void Enemy::UpdateZako1()
 	float dt = Time::DeltaTime();
 	bulletTimer += dt;
 	Player* p = FindGameObject<Player>();
-	if (transform.position.Size() - p->GetTransform().position.Size() < 700)
+	if (std::abs(transform.position.Size() - p->GetTransform().position.Size()) < 700)
 	{
 		if (bulletTimer > 5)
 		{

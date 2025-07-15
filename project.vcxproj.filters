@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Library\App.cpp">
       <Filter>Library</Filter>
     </ClCompile>
@@ -79,6 +78,15 @@
     </ClCompile>
     <ClCompile Include="Source\Bullet.cpp">
       <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResultScene.cpp">
+      <Filter>ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneFactory.cpp">
+      <Filter>TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +182,12 @@
     <ClInclude Include="Source\Bullet.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResultScene.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -190,6 +204,9 @@
     </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene">
+      <UniqueIdentifier>{fdaffd60-31e2-4b5e-aff8-9ff6b261728a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

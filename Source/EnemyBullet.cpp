@@ -85,6 +85,12 @@ void EnemyBullet::Update()
 		}
 	}
 	
+	if (st->CheckCircleCollisionXY(transform.position, 10.0f, p->GetPosition(), 40.0f))
+	{
+		DestroyMe();
+		p->Damage();
+		p->ScoreDown();
+	}
 
 	if (life_ < 0)
 	{

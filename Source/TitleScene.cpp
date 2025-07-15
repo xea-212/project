@@ -5,14 +5,6 @@ using namespace std;
 
 TitleScene::TitleScene()
 {
-	ofstream ofs2("test.txt");
-	ofs2 << "TEST";
-	ofs2.close();
-
-	ofstream ofs("test.bin", ios::binary);
-	int i = 0x12;
-	ofs.write((char*) & i, sizeof(i));
-	ofs.close();
 
 	hImage_ = LoadGraph("data/images/background.jpg");
 	isDisplay_ = true;
