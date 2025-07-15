@@ -164,63 +164,31 @@ VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 	return ret;
 }
 
-bool Stage::HitTile(VECTOR3 center)
+bool Stage::CheckHitTile(VECTOR3 center)
 {
-			int tileX = center.x / 100;
-			int tileY = center.y / -100.0f;
-			if (maps[tileY + 1][tileX] == 1)
-			{
-				VECTOR3 tileCenter = VECTOR3(tileX * 100.0f, tileY * -100.0f, 0);
-				VECTOR3 distance = tileCenter - center;
-				if(std::abs(distance.Size()) < 50.0f)
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+
+	int tileX = center.x / 100;
+	int tileY = center.y / -100.0f;
+
+	if (maps[tileY + 1][tileX] == 1)
+	{
+		VECTOR3 tileCenter = VECTOR3(tileX * 100.0f, tileY * -100.0f, 0) - VECTOR3(0, 50, 0);
+		VECTOR3 distance = tileCenter - center;
+		if(std::abs(distance.Size()) < 100.0f)
+		return true;
+	}
+	
+	return false;
 }
 
-//bool Stage::HitTile(const VECTOR3& center)
-//{
-//	int tileX = center.x / 100.0f;
-//	int tileY = center.y / -100.0f;
-//	if (maps[tileY][tileX] == 1)
-//	{
-//		return true;
-//	}
-//	else
-//	{
-//		return false;
-//	}
-//}
 
 bool Stage::CheckCircleCollisionXY(const VECTOR3& pos1, float r1, const VECTOR3& pos2, float r2)
 {
+
 	float dx = pos1.x - pos2.x;
 	float dy = pos1.y - pos2.y;
 	float distSq = std::sqrtf(dx * dx + dy * dy);
 	float radiusSum = r1 + r2;
 
 	return distSq <= radiusSum;
-}
-
-bool Stage::CheckHitTile(const VECTOR3& center, float radius)
-{
-	for (int y = 0; y < maps.size(); y++) {
-		for (int x = 0; x < maps[y].size(); x++) {
-			// maps[y][x] == 1 ‚ªÕ“Ë”»’è‚ðs‚¤
-			if (maps[y][x] != 1)
-				continue;
-			VECTOR3 up = center + VECTOR3(0, radius, 0);
-			int tilex = up.x / -100.0f;
-			int tiley = up.y / -100.0f;
-			if (maps[tiley][tilex] == 1)
-			{
-				return true;
-			}
-		}
-	}
-
-	return false;
 }

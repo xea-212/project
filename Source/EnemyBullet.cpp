@@ -66,7 +66,7 @@ void EnemyBullet::Update()
 	if (st != nullptr)
 	{
 
-		if (st->CheckHitTile(transform.position + VECTOR3( 0, 10, 0), 10.0f))
+		if (st->CheckHitTile(transform.position + VECTOR3( 0, 10, 0)))
 		{
 			DestroyMe();
 		}

@@ -1,6 +1,5 @@
 #include "Bullet.h"
 #include "Player.h"
-#include "Enemy.h"
 #include "Stage.h"
 
 Bullet::Bullet(VECTOR3 pos)
@@ -11,7 +10,7 @@ Bullet::Bullet(VECTOR3 pos)
 
 	isAlive_ = false;
 	life_ = 120;
-	speed_ = 10.0f;
+	speed_ = 8.0f;
 }
 
 Bullet::~Bullet()
@@ -25,18 +24,15 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	Stage* st = FindGameObject<Stage>();
 	
-
 	if (isAlive_ == false)
 	{
 		life_--;
 		Stage* st = FindGameObject<Stage>();
 		if (st != nullptr)
 		{
-			VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 10, 0), 10.0f);
-			//push.y = 0;
-			
-			if (VSize(push) > 0)
+			if (st->CheckHitTile(transform.position + VECTOR3(0,10,0)))
 			{
 				DestroyMe();
 			}
@@ -55,14 +51,6 @@ void Bullet::Update()
 		DestroyMe();
 		isAlive_ = false;
 	}
-
-	/*Stage* s = FindGameObject<Stage>();
-	Enemy* e = FindGameObject<Enemy>();
-	if (s->CheckCircleCollisionXY(transform.position, 20, e->GetTransform().position, 40))
-	{
-		e->DestroyMe();
-	}*/
-	
 }
 
 void Bullet::Draw()
