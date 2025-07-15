@@ -15,6 +15,7 @@ public:
 private:
 	std::vector<std::vector<int>> maps;
 	int hImage_;
+	int isDraw;
 };
 
 

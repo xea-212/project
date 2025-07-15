@@ -13,6 +13,8 @@ Stage::Stage()
 
 	hImage_ = LoadGraph("data/images/background.jpg");
 
+	isDraw = false;
+
 	int st = 0;
 	char filename[64];
 	sprintf_s<64>(filename, "data/stage%02d.csv", st);
@@ -69,11 +71,25 @@ void Stage::Draw()
 	{
 		for (int x = 0; x < maps[z].size(); x++)
 		{
-			if(maps[z][x] == 1)
-			MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
+			if (maps[z][x] == 1)
+			{
+				MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
+			}
+			if (maps[z][x] == 7)
+			{
+				Player* p = FindGameObject<Player>();
+				VECTOR3 pPos = p->GetPosition();
+				if (pPos.x > x * 100.0f + 50.0f)
+				{
+					isDraw = true;
+					MV1SetPosition(hModel, VECTOR3(100.0f * x, -100.0f * z, 0));
+				}
+			}
 			MV1DrawModel(hModel);
 		}
 	}
+	
+	
 }
 
 //VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
@@ -125,8 +141,17 @@ VECTOR3 Stage::CollideSphere(VECTOR3 center, float radius)
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			// maps[z][x] == 1 ‚ªÕ“Ë”»’è‚ðs‚¤
-			if (maps[y][x] != 1)
-				continue;
+			
+			if (isDraw == true)
+			{
+				if (maps[y][x] != 1 && maps[y][x] != 7)
+					continue;
+			}
+			else
+			{
+				if (maps[y][x] != 1)
+					continue;
+			}
 
 			MV1SetPosition(hModel, VGet(x * 100.0f, y * -100.0f, 0)); // << ‚±‚±‚ð’²®
 
