@@ -86,6 +86,7 @@ void Stage::Update()
 			if (CheckCircleCollisionXY(b->GetTransform().position, 20, enemy->GetTransform().position, 40))
 			{
 				enemy->DestroyMe();
+				p->ScoreUp();
 			}
 		}
 	}
@@ -208,11 +209,11 @@ bool Stage::CheckHitItem(VECTOR3 center)
 	int tileX = center.x / 100;
 	int tileY = center.y / -100.0f;
 
-	if (maps[tileY + 1][tileX] == 1)
+	if (maps[tileY][tileX] == 9)
 	{
 		VECTOR3 itemCenter = VECTOR3(tileX * 100.0f, tileY * -100.0f, 0) - VECTOR3(0, 50, 0);
 		VECTOR3 distance = itemCenter - center;
-		if (std::abs(distance.Size()) < 500.0f)
+		if (std::abs(distance.Size()) < 100.0f)
 			return true;
 	}
 

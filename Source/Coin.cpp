@@ -36,6 +36,7 @@ void Coin::Update()
 		velocity.y -= Gravity;
 		if (time == 0)
 		{
+			p->CoinScoreUP();
 			DestroyMe();
 		}
 	}

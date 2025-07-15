@@ -122,4 +122,5 @@ void Player::Draw()
 	Object3D::Draw();
 	//DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 	DrawFormatString(0,0,GetColor(255,255,255),"%d",life_);
+	DrawFormatString(500, 0, GetColor(255, 255, 255), "%d", score_);
 }

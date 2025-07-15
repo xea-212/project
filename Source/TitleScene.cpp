@@ -7,6 +7,7 @@ TitleScene::TitleScene()
 {
 
 	hImage_ = LoadGraph("data/images/background.jpg");
+	tImage_ = LoadGraph("data/images/sweetsavoid.png");
 	isDisplay_ = true;
 	titleTimer_ = 0.0f;
 }
@@ -38,7 +39,9 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	
 	DrawGraph(0, 0, hImage_, TRUE);
+	DrawGraph(310, 250, tImage_, TRUE);
 	extern const char* Version();
 	SetFontSize(40);
 	if(isDisplay_ == true)

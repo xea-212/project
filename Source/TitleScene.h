@@ -15,6 +15,7 @@ public:
 	void Draw() override;
 private:
 	int hImage_;
+	int tImage_;
 	bool isDisplay_;
 	float titleTimer_;
 };
