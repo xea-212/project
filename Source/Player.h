@@ -15,6 +15,7 @@ public:
 	void CoinScoreUP() { score_ += 100; }
 	void ScoreDown() { score_ -= 100; }
 	void PapperSride() { transform.position += VECTOR3(0,10.0f,0); }
+	int GetScore() { return score_; }
 private:
 	bool isAlive_;
 	int life_;

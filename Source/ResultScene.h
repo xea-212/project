@@ -14,4 +14,8 @@ public:
 	void Draw() override;
 private:
 	int hImage_;
+	int goImage_;
+	bool isDisplay_;
+	float timer_;
+	float goTimer_;
 };
