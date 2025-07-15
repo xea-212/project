@@ -3,11 +3,6 @@
 #include "PlayScene.h"
 #include "Bullet.h"
 
-enum ANIM_ID
-{
-	aIDLE = 0,
-	aRUN,
-};
 
 Player::Player(VECTOR3(pos))
 {
@@ -16,35 +11,20 @@ Player::Player(VECTOR3(pos))
 	hModel = MV1LoadModel("data/models/ashley.mv1");
 	MV1SetFrameUserLocalMatrix(hModel, 6, MGetRotY(DX_PI_F));
 
-	anim = new Animator(hModel);
-	anim->AddFile(ANIM_ID::aIDLE, "data/models/Anim_Idle.mv1", true);
-	anim->AddFile(ANIM_ID::aRUN, "data/models/Anim_Run.mv1", true);
-	anim->Play(ANIM_ID::aIDLE);
-
 	VECTOR3 campos = VECTOR3(0, 300, -300) + transform.position;
 	VECTOR3 camlook = transform.position + VECTOR3(0, 150, 0);
 	SetCameraPositionAndTarget_UpVecY(campos, camlook);
-
-	isPushKey = false;
 }
 
 Player::~Player()
 {
-	if (anim != nullptr)
-	{
-		delete anim;
-		anim = nullptr;
-	}
 }
 
 void Player::Update()
 {
 	int key = GetJoypadInputState(DX_INPUT_PAD1);
 
-	if (anim != nullptr)
-	{
-		anim->Update();
-	}
+	
 
 	if (GetScene<PlayScene>()->CantMove())
 		return;
@@ -60,33 +40,27 @@ void Player::Update()
 	VECTOR3 velocity; // ˆÚ“®ƒxƒNƒgƒ‹ 
 	if (CheckHitKey(KEY_INPUT_D) || key & PAD_INPUT_RIGHT)
 	{
-		velocity = VECTOR3(1, 0, 0) * 5.0f;
-		anim->Play(ANIM_ID::aRUN);
-		isPushKey = true;
+		velocity = VECTOR3(1, 0, 0) * 4.0f;
+		
+		
 	}
     if(CheckHitKey(KEY_INPUT_A) || key & PAD_INPUT_LEFT)
 	{
-		velocity = VECTOR3(-1, 0, 0) * 5.0f;
-		anim->Play(ANIM_ID::aRUN);
-		isPushKey = true;
+		velocity = VECTOR3(-1, 0, 0) * 4.0f;
+		
+		
 	}
 	if (CheckHitKey(KEY_INPUT_W) || key & PAD_INPUT_UP)
 	{
-		velocity = VECTOR3(0, 1, 0) * 5.0f;
-		isPushKey = true;
+		velocity = VECTOR3(0, 1, 0) * 4.0f;
+		
 	}
 	if (CheckHitKey(KEY_INPUT_S) || key & PAD_INPUT_DOWN)
 	{
-		velocity = VECTOR3(0, -1, 0) * 5.0f;
-		isPushKey = true;
+		velocity = VECTOR3(0, -1, 0) * 4.0f;
+		
 	}
-	if(isPushKey == false)
-	{
-		anim->Play(ANIM_ID::aIDLE);
-	}
-	/*transform.position += velocity;*/
-	isPushKey = false;
-
+	
 	if (CheckHitKey(KEY_INPUT_SPACE) || key & PAD_INPUT_B)
 	{
 		if (FindGameObject<Bullet>() == nullptr)
@@ -96,8 +70,7 @@ void Player::Update()
 	Stage* st = FindGameObject<Stage>();
 	if (st != nullptr)
 	{
-		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 0, 0), 40.0f);
-		push.y = 0;
+		VECTOR3 push = st->CollideSphere(transform.position + VECTOR3(0, 40.0f, 0), 40.0f);
 		if (VDot(velocity, push) < 0)
 		{
 			transform.position += push;
@@ -118,5 +91,5 @@ void Player::Update()
 void Player::Draw()
 {
 	Object3D::Draw();
-	DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+	//DrawSphere3D(transform.position + VECTOR3(0, 50, 0), 40, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }

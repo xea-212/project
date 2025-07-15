@@ -82,5 +82,5 @@ void EnemyBullet::Update()
 void EnemyBullet::Draw()
 {
 	Object3D::Draw();
-	DrawSphere3D(transform.position + VECTOR3(0, 20, 0), 20, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+	//DrawSphere3D(transform.position + VECTOR3(0, 20, 0), 20, 4, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }

@@ -27,11 +27,6 @@ void Bullet::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Enemy* e = FindGameObject<Enemy>();
-	if (st->CheckCircleCollisionXY(transform.position, 20, e->GetTransform().position, 40))
-	{
-		e->DestroyMe();
-		DestroyMe();
-	}
 	
 	if (isAlive_ == false)
 	{
@@ -46,6 +41,11 @@ void Bullet::Update()
 	{
 		DestroyMe();
 		isAlive_ = false;
+	}
+
+	if (st->HitTile(transform.position + VECTOR3(0, 10, 0)))
+	{
+		DestroyMe();
 	}
 }
 

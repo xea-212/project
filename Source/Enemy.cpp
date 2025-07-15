@@ -98,8 +98,7 @@ void Enemy::UpdateZako1()
 			bulletTimer = 0;
 		}
 	}
-	Stage* st = FindGameObject<Stage>();
-	Bullet* b = FindGameObject<Bullet>();
+
 }
 
 void Enemy::UpdateZako2()
