@@ -29,7 +29,6 @@ void Bullet::Update()
 	if (isAlive_ == false)
 	{
 		life_--;
-		Stage* st = FindGameObject<Stage>();
 		if (st != nullptr)
 		{
 			if (st->CheckHitTile(transform.position + VECTOR3(0,10,0)))
