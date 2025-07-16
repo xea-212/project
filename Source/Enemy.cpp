@@ -15,18 +15,22 @@ Enemy::Enemy(VECTOR3(pos), int enemyName)
 	{
 	case ENEMY::ZAKO0:
 		hModel = MV1LoadModel("data/models/Yogurt.mv1");
+		life_ = 50;
 		break;
 	case ENEMY::ZAKO1:
 		hModel = MV1LoadModel("data/models/Cookie.mv1");
+		life_ = 10;
 		break;
 	case ENEMY::ZAKO2:
 		hModel = MV1LoadModel("data/models/Eye.mv1");
+		life_ = 10;
 		break;
 	case ENEMY::ZAKO3:
 		
 		break;
 	case ENEMY::BOSS:
-		
+		hModel = MV1LoadModel("data/models/Box.mv1");
+		life_ = 100;
 		break;
 	default:
 		break;
@@ -69,6 +73,13 @@ void Enemy::Update()
 		break;
 	default:
 		break;
+	}
+
+	Player* p = FindGameObject<Player>();
+	if (life_ <= 0)
+	{
+		DestroyMe();
+		p->ScoreUp();
 	}
 }
 

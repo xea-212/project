@@ -65,6 +65,10 @@ Stage::Stage()
 			{
 				new Item(VECTOR3(100.0f * x, -100.0f * z + 50.0f, 0), 9);
 			}
+			else if (p == 10)
+			{
+				new Enemy(VECTOR3(100.0f * x, -100.0f * z, 0), 4);
+			}
 		}
 	}
 }
@@ -85,8 +89,8 @@ void Stage::Update()
 		{
 			if (CheckCircleCollisionXY(b->GetTransform().position, 20, enemy->GetTransform().position, 40))
 			{
-				enemy->DestroyMe();
-				p->ScoreUp();
+				b->DestroyMe();
+				enemy->Damage();
 			}
 		}
 	}

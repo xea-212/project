@@ -45,7 +45,7 @@ EnemyBullet::EnemyBullet(VECTOR3(pos), int bulletName)
 
 	life_ = 300;
 	
-	printfDx("%d\n", enemyId);
+	//printfDx("%d\n", enemyId);
 }
 
 EnemyBullet::~EnemyBullet()

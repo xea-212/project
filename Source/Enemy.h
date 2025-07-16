@@ -8,7 +8,7 @@ public:
 	Enemy(VECTOR3(pos), int enemyName);
 	~Enemy();
 	void Update() override;
-	
+	void Damage() { life_ -= 10; }
 private:
 	float bulletTimer;
 	VECTOR3 direction_;
@@ -31,4 +31,5 @@ private:
 
 	VECTOR3 basePosition_;
 	bool isBack_;
+	int life_;
 };
