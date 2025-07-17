@@ -82,11 +82,14 @@
     <ClCompile Include="Source\Item.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ResultScene.cpp">
+    <ClCompile Include="Source\GameOverScene.cpp">
       <Filter>ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneFactory.cpp">
       <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ClearScene.cpp">
+      <Filter>ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +188,10 @@
     <ClInclude Include="Source\Item.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ResultScene.h">
+    <ClInclude Include="Source\GameOverScene.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ClearScene.h">
       <Filter>ResultScene</Filter>
     </ClInclude>
   </ItemGroup>

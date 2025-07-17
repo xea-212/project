@@ -19,6 +19,7 @@ Stage::Stage()
 
 	isDraw = false;
 	isInBossArea_ = false;
+	score_ = 0;
 
 	int st = 0;
 	char filename[64];
@@ -87,7 +88,7 @@ void Stage::Update()
 	{
 		if (b != nullptr && enemy != nullptr)
 		{
-			if (CheckCircleCollisionXY(b->GetTransform().position, 20, enemy->GetTransform().position, 40))
+			if (CheckCircleCollisionXY(b->GetTransform().position + VECTOR3(0, 10, 0), 10, enemy->GetTransform().position + VECTOR3(0, 40, 0), 40))
 			{
 				b->DestroyMe();
 				enemy->Damage();
@@ -95,6 +96,11 @@ void Stage::Update()
 		}
 	}
 	
+
+	if (score_ < 0)
+	{
+		score_ = 0;
+	}
 }
 
 void Stage::Draw()
@@ -132,7 +138,7 @@ void Stage::Draw()
 		}
 	}
 	
-	
+	DrawFormatString(500, 0, GetColor(255, 255, 255), "%d", score_);
 }
 
 

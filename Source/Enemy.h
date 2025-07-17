@@ -9,6 +9,9 @@ public:
 	~Enemy();
 	void Update() override;
 	void Damage() { life_ -= 10; }
+	void IsClear() {  isClear_ = true; }
+	bool IsClearCheck() { return isClear_; }
+	bool IsBoss() { return isBoss_; }
 private:
 	float bulletTimer;
 	VECTOR3 direction_;
@@ -32,4 +35,6 @@ private:
 	VECTOR3 basePosition_;
 	bool isBack_;
 	int life_;
+	bool isClear_;
+	bool isBoss_;
 };

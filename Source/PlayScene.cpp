@@ -1,7 +1,8 @@
 #include "PlayScene.h"
 #include "Axis.h"
 #include "Stage.h"
-#include "PLayer.h"
+#include "Player.h"
+#include "Enemy.h"
 
 PlayScene::PlayScene()
 {
@@ -18,10 +19,20 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+	Stage* st = FindGameObject<Stage>();
 	Player* p = FindGameObject<Player>();
-	if (p->IsAlive() == false) {
-		SceneManager::ChangeScene("RESULT");
+	std::list<Enemy*> enemies = FindGameObjects<Enemy>();
+	if (p->IsAlive() == false ) {
+		SceneManager::ChangeScene("GAMEOVER");
 	}
+	for (Enemy* e : enemies) {
+		if (e->IsBoss() && e->IsClearCheck()) {
+			e->DestroyMe();
+			st->ScoreUp();
+			SceneManager::ChangeScene("CLEAR");
+		}
+	}
+	
 }
 
 void PlayScene::Draw()

@@ -89,7 +89,7 @@ void EnemyBullet::Update()
 	{
 		DestroyMe();
 		p->Damage();
-		p->ScoreDown();
+		st->ScoreDown();
 	}
 
 	if (life_ < 0)

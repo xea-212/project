@@ -1,7 +1,8 @@
-#include "ResultScene.h"
+#include "GameOverScene.h"
 #include "Player.h"
+#include "Stage.h"
 
-ResultScene::ResultScene()
+GameOverScene::GameOverScene()
 {
 	hImage_ = LoadGraph("data/images/background.jpg");
 	goImage_ = LoadGraph("data/images/gameover.png");
@@ -12,11 +13,11 @@ ResultScene::ResultScene()
 }
 
 
-ResultScene::~ResultScene()
+GameOverScene::~GameOverScene()
 {
 }
 
-void ResultScene::Update()
+void GameOverScene::Update()
 {
 	goTimer_ += Time::DeltaTime();
 	if (goTimer_ > 1.0f) {
@@ -34,17 +35,17 @@ void ResultScene::Update()
 	}
 }
 
-void ResultScene::Draw()
+void GameOverScene::Draw()
 {
-	Player* p = FindGameObject<Player>();
+	Stage* st = FindGameObject<Stage>();
 	
 	DrawGraph(0, 0, hImage_, TRUE);
 	DrawGraph(250, 250, goImage_, TRUE);
 	
 
-	if (p != nullptr)
+	if (st != nullptr)
 	{
-		int score = p->GetScore();
+		int score = st->GetScore();
 		DrawFormatString(400, 400, GetColor(255, 255, 255), "%d", score);
 	}
 	if (isDisplay_ == true)

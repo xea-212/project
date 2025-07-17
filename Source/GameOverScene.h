@@ -5,11 +5,11 @@
 /// <summary>
 /// ゲームプレイのシーンを制御する
 /// </summary>
-class ResultScene : public SceneBase
+class GameOverScene : public SceneBase
 {
 public:
-	ResultScene();
-	~ResultScene();
+	GameOverScene();
+	~GameOverScene();
 	void Update() override;
 	void Draw() override;
 private:

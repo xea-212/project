@@ -4,7 +4,8 @@
 #include "BootScene.h"
 #include "TitleScene.h"
 #include "PlayScene.h"
-#include "ResultScene.h"
+#include "ClearScene.h"
+#include "GameOverScene.h"
 
 SceneBase* SceneFactory::CreateFirst()
 {
@@ -21,9 +22,13 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	{
 		return new PlayScene();
 	}
-	if (name == "RESULT")
+	if (name == "CLEAR")
 	{
-		return new ResultScene();
+		return new ClearScene();
+	}
+	if (name == "GAMEOVER")
+	{
+		return new GameOverScene();
 	}
 	MessageBox(NULL, ("éüÇÃÉVÅ[ÉìÇÕÇ†ÇËÇ‹ÇπÇÒ\n" + name).c_str(), "SceneFactory", MB_ICONERROR | MB_OK);
 	assert(false);

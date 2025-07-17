@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "Player.h"
+#include"Stage.h"
 
 Coin::Coin(VECTOR3 pos)
 {
@@ -26,6 +27,7 @@ void Coin::Update()
 		Player* p = FindGameObject<Player>();
 		Transform pTr = p->GetTransform();
 		VECTOR3 v = pTr.position - transform. position;
+		Stage* st = FindGameObject<Stage>();
 		v.y = 0;
 		v /= time;
 		time--;
@@ -36,7 +38,7 @@ void Coin::Update()
 		velocity.y -= Gravity;
 		if (time == 0)
 		{
-			p->CoinScoreUP();
+			st->CoinScoreUP();
 			DestroyMe();
 		}
 	}
